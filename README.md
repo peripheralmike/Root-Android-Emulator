@@ -1,4 +1,7 @@
 # Root-Android-Emulator
+
+![](/Users/mikesmith/screenshots/su.png)
+
 If you find yourself in need ot testing something on a "rooted" android device and can't get a physical device to root then you can always use the Android Emulator through Android Studio.
 
 Rooting is simply the act of allowing the user (you) to execute commands on the device at the highest level of permissions. These are usually locked out of consumer devices but sometimes you need that level of access for devlopment, software testing or simply to experiment with something.
