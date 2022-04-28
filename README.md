@@ -6,47 +6,72 @@
 
 If you find yourself in need of testing something on a "rooted" android device and can't get a physical device to root then you can always use the Android Emulator through Android Studio.
 
-Rooting is simply the act of allowing the user (you) to execute commands on the device at the highest level of permissions. These are usually locked out of consumer devices but sometimes you need that level of access for devlopment, software testing or simply to experiment with something.
+Rooting is simply the act of allowing the user to execute commands on the device at the highest level of permissions. These are usually locked out of consumer devices but sometimes you need that level of access for devlopment, software testing or simply to experiment with something.
 
-This guide will take you through rooting an Android Emulator so you can have full access to it.
+This guide will take you through rooting an Android Emulator so you can have full access to it and is inteded for educational purposes only.
 
-> _If you encounter any strange bugs during this process or any error messages not mentioned - I encourage you to copy the error message into Google as this will usually offer a solution through resources such as Stack Overflow or Reddit_
+> _If you should encounter any strange bugs during this process or any error messages not mentioned - I encourage you to copy the error message into Google as this will usually offer a solution through resources such as Stack Overflow or Reddit_
 
 ## Example Scenario
 
-> _What if I want to have root access to a Nexus 5X device running Android 7.1_
+> _I want to have root access to a Nexus 5X running Android 7.1_
 
-This is a very specific scenario however it is something that Software Testers and Developers have come across before. Through this example we'll use this repo to solve that example problem.
+This is a very specific scenario, however it is something that Software Testers and Developers have come across before. Through this example we'll use this repo to solve that scenario.
 
 ## Android Studio
-- Go [here](https://www.examplhttps://developer.android.com/studio?gclid=EAIaIQobChMI49mm35i29wIVGoBQBh3f5gKGEAAYASAAEgJEJPD_BwE&gclsrc=aw.ds#downloadse.com) and download the version of Android Studio you need
+- Firstly we need Android Studio; go [here](https://www.examplhttps://developer.android.com/studio?gclid=EAIaIQobChMI49mm35i29wIVGoBQBh3f5gKGEAAYASAAEgJEJPD_BwE&gclsrc=aw.ds#downloadse.com) and download the version of Android Studio you need depending on your operating system.
 
 # Setup
 - Open Android Studio
-- Create a new Project (the exact details don't matter)
+- Create a new Project (the exact details don't really matter)
 - Navigate to Tools > SDK Manager
 - On the next screen you'll see a list of different Android operating systems
-- From this List, cluick the tick box labelled "Show Package Detils" in the lower right corner
+- From this List, click the tick box labelled "Show Package Detils" in the lower right corner
+
+<p align="center">
+  <img src="assets/12
+.png" />
+</p>
+
 - Scroll to the Android 7.1 section
 - Here you'll find a lot of different types of System Images. For maxiumum compatibility choose "Google APIs Intel x86 Atom_64 System Image"
-> _It's important to note at this stage that with the Google API versions of system images, you won't be able to access the Play Store so ensure you have a copy of the .apk file you want to install_
+
+> _It's important to note at this stage that with the Google API versions of system images, you won't be able to access the Play Store so ensure you have a copy of any .apk files you want to install_
 - Tick the tickbox next to the "Google APIs Intel x86 Atom_64 System Image"
+
+<p align="center">
+  <img src="assets/11.png" />
+</p>
+
 - Click Apply
 > _This will install the system image and might take a few minutes_
 - Once finished, click Finish then OK to go back to the main Android Studio window
-- Click 'Create Device' in the Device Manager section of Android Studio > If this isn't visable, you can find this by choosing the View > Tool Windows > Device Manager option_
+- Click 'Create Device' in the Device Manager section of Android Studio > If this isn't visable, you can find this by choosing the View > Tool Windows > Device Manager option
 - On the Select Hardware window, choose Nexus 5
+<p align="center">
+  <img src="assets/13.png" />
+</p>
 - Click Next
 - On the Select Image window, click the "x86 Images' near the top of the screen, this will give you more images to select from
 - From this new list, find and choose Nougat, API Level 25, ABI x86_64 Target Android 7.1.1 (Google APIs)
+<p align="center">
+  <img src="assets/15.png" />
+</p>
 - Click next 
 - Name you Android Virtual Device (AVD) RootAVD for the purposes of this demo
+<p align="center">
+  <img src="assets/14.png" />
+</p>
 - Click Finish
+
+
 
 # Installing SuperUser App and Binary 
 ## On MacOS Terminal
 - Run the command `~/Library/Android/sdk/emulator/emulator -avd RootAVD -writable-system -selinux disabled -qemu`
+
 > _This will start your emulator from the command line and make the device writeable for the next steps, you will see output similar to the following)_
+
 <p align="center">
   <img src="assets/2.png" />
 </p>
@@ -130,7 +155,7 @@ As mentioned previously; there are several different architecture configurations
 - Run the command `C:\Users\<username>\AppData\Local\Android\Sdk\emulator\emulator -avd RootAVD -writable-system -selinux disabled -qemu`
 > _This will start your emulator from the command line and make it writeable for the next steps_
 - Open a new Command Prompt window or tab <u>**as an Administrator**</u>  (Do not close the original one)
-- Make sure your Command Prompt is in the directory `C:\Users\<username>\AppData\Local\Android\Sdk\sdk\platform-tools`
+- Make sure your Command Prompt is in the directory `C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools`
 - Still on the Command Prompt and in the `platform-tools` folder, run `adb root`
 - You should see the response `restarting adbd as root`
 - In the same Command Prompt Window, run `adb remount`
