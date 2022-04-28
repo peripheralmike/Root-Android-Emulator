@@ -60,8 +60,7 @@ This is a very specific scenario, however it is something that Software Testers 
 - From this List, click the tick box labelled "Show Package Detils" in the lower right corner
 
 <p align="center">
-  <img src="assets/12
-.png" />
+  <img src="assets/12.png" />
 </p>
 
 - Scroll to the Android 7.1 section
@@ -362,7 +361,7 @@ cd /Users/<yourusername>/Library/Android/sdk/platform-tools
 ./adb shell setenforce 0
 ./adb shell su --install
 ./adb shell su --daemon&
-Open SuperSU on the decive
+Open SuperSU on the device
 You're done!
 ```
 ### TLDR: Commands for Windows
@@ -377,6 +376,7 @@ adb shell chmod 0755 /system/xbin/su
 adb shell setenforce 0
 adb shell su --install
 adb shell su --daemon&
-
+Open SuperSU on the device
+You're done!
 ```
 ##### Sources: Modified and expanded from a project by [0xFireball](https://github.com/0xFireball/root_avd)
