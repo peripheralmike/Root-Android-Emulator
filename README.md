@@ -51,8 +51,7 @@ This is a very specific scenario however it is something that Software Testers a
   <img src="assets/2.png" />
 </p>
 
-- Open a new Terminal window or tab
-## <u>**(Do not close the original one)**</u>
+- Open a new Terminal window or tab <u>**(Do not close the original one)**</u>
 - Make sure your terminal is in the directory `/Users/<yourusername>/Library/Android/sdk/platform-tools`
 - Still on the Terminal and in the `platform-tools` folder, run `./adb root`
 > You should see the response `restarting adbd as root` 
