@@ -1,6 +1,6 @@
 # Root-Android-Emulator
 
-![this is the alt text](https://imgur.com/a/hJnkP0q)
+![My animated logo](assets/1)
 
 If you find yourself in need ot testing something on a "rooted" android device and can't get a physical device to root then you can always use the Android Emulator through Android Studio.
 
