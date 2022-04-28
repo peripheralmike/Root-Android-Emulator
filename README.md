@@ -127,36 +127,33 @@ As mentioned previously; there are several different architecture configurations
 
 # On Windows 10 Command Prompt
 - Open Command Prompt (CMD) <u>**as an Administrator**</u>
-- Run the command `C:\Users\<username>\AppData\Android\Sdk\emulator\emulator -avd RootAVD -writable-system -selinux disabled -qemu`
-
+- Run the command `C:\Users\<username>\AppData\Local\Android\Sdk\emulator\emulator -avd RootAVD -writable-system -selinux disabled -qemu`
 > _This will start your emulator from the command line and make it writeable for the next steps_
-- Open a new Terminal window or tab (Do not close the original one)
-- Make sure your terminal is in the directory `/Users/<yourusername>/Library/Android/sdk/platform-tools`
-- Still on the Terminal and in the `platform-tools` folder, run `./adb root`
+- Open a new Command Prompt window or tab <u>**as an Administrator**</u>  (Do not close the original one)
+- Make sure your Command Prompt is in the directory `C:\Users\<username>\AppData\Local\Android\Sdk\sdk\platform-tools`
+- Still on the Command Prompt and in the `platform-tools` folder, run `adb root`
 - You should see the response `restarting adbd as root`
-- In the same Terminal Window, run 
+- In the same Command Prompt Window, run `adb remount`
 - You should see the response `remount succeeded`
 - At this stage, download the files in this repo (usually by clicking the dropdown arrow next to Code near the top of this GitHub page) save the files as a .zip
 Extract the .zip to your Desktop, you should end up with a folder called 'SuperSU' on your Desktop
-- Back in the Terminal, run the command `./adb install ~/Desktop/SuperSU/common/Superuser.apk`
+- Back in the Terminal, run the command `adb install C:\Users\<username>\Desktop\SuperSU\common\Superuser.apk`
 - You should see a response similar to `Performing Streamed Install - Success`
 > _this has installed the 'SuperUser' application onto your emulated device_
-- In the same Terminal window, run the command `./adb push ~/Desktop/SuperSU/x86/su /system/xbin/su` you should receive a response that includes something similar to `(253796 bytes in 0.107s)` which means it's worked 
+- In the same Command Prompt window, run the command `adb push C:\Users\<username>\Desktop\SuperSU\x86\su /system/xbin/su` you should receive a response that includes something similar to `(253796 bytes in 0.107s)` which means it's worked 
 > _This command will move a file from the downloaded files to your device that is needed for rooting the device. It's a binary file for the SuperUser app, there are several different versions of this based on the architecture of your system / application but I'll get into those shortly_
-- In the same Terminal window - run the command `./adb shell chmod 0755 /system/xbin/su` You won't get a response from this command but that usually means it's worked. No error message means progress in this case.  
+
+> **Very important to remember that there are different direction slashes for different operating systems. Windows uses \ but android devices uses / so when interacting with both systems with commands like this make sure that you're using the right slashes in the right places.**
+- In the same Command Prompt window - run the command `adb shell chmod 0755 /system/xbin/su` You won't get a response from this command but that usually means it's worked. No error message means progress in this case.  
 > _This changes the inherent permissions of the 'su' file we just moved so we can run it, different chmod numbers do different things so if you need something different, please Google the exact number you need)_
-- In the Terminal, run `./adb shell setenforce 0` You probably won't get a response from this command either, don't worry about it. 
+- In the Command Prompt, run `adb shell setenforce 0` You probably won't get a response from this command either, don't worry about it. 
 > _This will change the enforcement policy so we can install the binary we need_
-- From the Terminal, run `./adb shell su --install` Again, no response from the Terminal, totally normal. 
+- From the Command Prompt, run `adb shell su --install` Again, no response from the Command Prompt, totally normal. 
 > _This installs the binary we just moved to work with the SuperUser app_
-- Finally in this stage, from the Terminal run the command `./adb shell su --daemon&` This command will give you a response, usually a number similar to the format of `[1] 87611`  
+- Finally in this stage, from the Command Prompt run the command `adb shell su --daemon&` This command will give you a response, usually a number similar to the format of `[1] 87611`  
 > _This will allow the SuperUser app to run_
 
-adb push C:\Users\<username>\Desktop\SuperSU\x86\su /system/xbin/su 
-> **Very important to remember that there are different direction slashes for different operating systems. Windows uses \ but android devices uses / so when interacting with both systems with commands like this make sure that you're using the right slashes in the right places.**
-
-
-Variables
+# A note on Variables
 You can make this a bit easier by using variables in the path. For example on Windows you could have `C:\Users\<username>\AppData\Android\Sdk` saved as the variable SDK_PATH so you would only need to type in `%SDK_PATH%\emulator` for example
 
 To set a variable on Windows run the command "set VARNAME=VARVAULE" so for this example I'd type `set SDK_PATH=C:\Users\<username>\AppData\Android\Sdk`
@@ -166,7 +163,5 @@ I could then check this has worked by using the echo command with `echo %SDK_PAT
 To set a veriable on MacOS run the command "export VARNAME=VARVALUE" so in this example I'd type `export SDK_PATH=/users/<username>/Library/Android/sdk`
 
 I could then ensure that's worked by using the echo command with `echo $SDK_PATH` which should print out the full file directory that I saved.
-
-
 
 ##### Sources: Modified and expanded from a project by 0xFireball
