@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>@LABEL@</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>@BIN@</string>
+        <string>run</string>
+        <string>--log-file</string>
+        <string>@LOG@</string>
+    </array>
+
+    <!-- Daily. launchd fires this on wake if the Mac was asleep at the time,
+         so a laptop that naps still gets its run. Edit the Hour below, or add
+         more dict entries to this array to run more than once a day. -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Hour</key>
+            <integer>@HOUR@</integer>
+            <key>Minute</key>
+            <integer>@MINUTE@</integer>
+        </dict>
+    </array>
+
+    <!-- Don't fire the moment it's loaded; wait for the schedule. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>@LOG@</string>
+    <key>StandardErrorPath</key>
+    <string>@LOG@</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/homebrew/bin</string>
+        <key>WEIRDFINDER_CONFIG</key>
+        <string>@CONFIG@</string>
+    </dict>
+
+    <!-- One run at a time: a slow run must not overlap the next schedule. -->
+    <key>AbandonProcessGroup</key>
+    <false/>
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>

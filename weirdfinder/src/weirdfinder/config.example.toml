@@ -1,0 +1,97 @@
+# weirdfinder configuration
+# Every key below is optional; the values shown are the defaults.
+
+[sheet]
+# The long id from your sheet's URL:
+# https://docs.google.com/spreadsheets/d/<THIS PART>/edit
+spreadsheet_id = ""
+worksheet = "Weird Games"
+credentials = "~/.config/weirdfinder/service-account.json"
+# Re-sort the sheet by score after each run. Off by default so your own row
+# order survives; a filter view is usually nicer.
+sort_by_score = false
+
+[scoring]
+# The three axes, weighted. They are normalised, so only the ratio matters.
+weight_obscurity = 0.35
+weight_vibe = 0.35
+weight_experimental = 0.30
+
+# How the three axes fold into one score.
+#   "best" - obscurity blended with whichever vibe axis is stronger, plus a
+#            bonus for scoring on both. A great analog-horror find is not
+#            marked down for failing to also be an art game.
+#   "mean" - strict weighted average; a high score needs all three at once.
+combine = "best"
+# In "best" mode, how much extra credit the weaker vibe axis earns.
+second_axis_bonus = 0.25
+
+# Review count at which a game counts as fully "known" (obscurity 0.0).
+# Lower this if too many well-covered games are getting through.
+popularity_cap = 3000
+
+# Obscurity used when a source exposes no review count at all (itch.io).
+unknown_obscurity = 0.75
+
+# How much matched lexicon weight is needed before an axis approaches 1.0.
+# Lower = easier to score high on vibe/experimental.
+saturation = 6.0
+
+# Rows below this total (0-100) never reach the sheet. Raise it if the sheet
+# is noisy, lower it if it is thin. Try `weirdfinder run --dry-run` first.
+min_score = 45.0
+
+# Case-insensitive substrings that disqualify a game outright. Empty by
+# default so nothing is dropped behind your back.
+exclude_terms = []
+
+[steam]
+enabled = true
+# Each entry is a set of Steam store-search query parameters. Build a search
+# you like at store.steampowered.com/search/, then copy its query string
+# pairs in here. `tags` takes Steam's numeric tag ids (visible in that URL).
+queries = [
+    { term = "analog horror", sort_by = "Released_DESC" },
+    { term = "surreal", sort_by = "Released_DESC" },
+    { term = "experimental", sort_by = "Released_DESC" },
+    { term = "liminal", sort_by = "Released_DESC" },
+    { term = "psychological horror", sort_by = "Released_DESC" },
+]
+pages_per_query = 2
+# Fetch each store page to read its user tags. One extra request per game,
+# but user tags are by far the best weirdness signal Steam offers.
+fetch_tags = true
+country = "us"
+language = "english"
+
+[itch]
+enabled = true
+# Browse paths under https://itch.io/. "newest" is the raw firehose;
+# "new-and-popular" is gentler. Any itch tag works: tag-<name>.
+browse_paths = [
+    "games/newest/tag-horror",
+    "games/newest/tag-surreal",
+    "games/newest/tag-experimental",
+    "games/newest/tag-psychological-horror",
+    "games/newest/tag-analog-horror",
+    "games/new-and-popular/tag-weird",
+]
+pages_per_path = 2
+# Fetch each game page for its full tag list and untruncated blurb.
+fetch_details = true
+
+[http]
+# Be a good citizen: these run unattended against someone else's servers.
+timeout = 20.0
+delay = 1.5      # seconds between requests to the same host
+retries = 4
+cache_ttl_hours = 168   # how long a fetched game's details stay fresh
+
+# Add or override lexicon phrases without editing the source. Set a phrase to
+# 0 to mute a built-in one that keeps producing false positives.
+# [lexicon.vibe]
+# "kitchen sink horror" = 3.0
+# "horror" = 0            # mute the generic catch-all
+#
+# [lexicon.experimental]
+# "unfinished on purpose" = 2.5
